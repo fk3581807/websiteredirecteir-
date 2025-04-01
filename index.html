@@ -3,30 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
-    <script type="text/javascript">
-        var uid = '352537';
-        var wid = '656824';
-        var pop_tag = document.createElement('script');
-        pop_tag.src = '//cdn.popcash.net/show.js';
-        document.body.appendChild(pop_tag);
-        pop_tag.onerror = function() {
-            pop_tag = document.createElement('script');
-            pop_tag.src = '//cdn2.popcash.net/show.js';
-            document.body.appendChild(pop_tag);
-        };
+    <title>Download Page</title>
 
-        // Auto-open the ad in a new tab
-        setTimeout(function() {
-            var adUrl = "https://www.popcash.net/redirect"; // Replace with actual ad URL
-            var newTab = window.open(adUrl, "_blank");
-            if (!newTab || newTab.closed || typeof newTab.closed == "undefined") { 
-                window.location.href = adUrl; // Fallback if pop-ups are blocked
-            }
-        }, 2000); // Delay to ensure ad script loads
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            // Create a fake button
+            var btn = document.createElement("button");
+            btn.innerText = "Download Now";
+            btn.style.padding = "15px 30px";
+            btn.style.fontSize = "18px";
+            btn.style.cursor = "pointer";
+            btn.style.border = "none";
+            btn.style.backgroundColor = "#28a745";
+            btn.style.color = "#fff";
+            btn.style.display = "block";
+            btn.style.margin = "100px auto";
+            btn.id = "fakeButton";
+            document.body.appendChild(btn);
+
+            // Load PopCash Ad Script
+            var pop_tag = document.createElement('script');
+            pop_tag.src = '//cdn.popcash.net/show.js';
+            document.body.appendChild(pop_tag);
+            pop_tag.onerror = function() {
+                pop_tag = document.createElement('script');
+                pop_tag.src = '//cdn2.popcash.net/show.js';
+                document.body.appendChild(pop_tag);
+            };
+
+            // Auto-click the button after a slight delay
+            setTimeout(function() {
+                btn.click();
+            }, 1500); // Delay for better ad triggering
+        });
     </script>
 </head>
 <body>
-    <h1>Loading Ad...</h1>
 </body>
 </html>
