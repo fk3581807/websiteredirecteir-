@@ -19,6 +19,12 @@
             text-align: center;
             border-radius: 5px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        /* Button color change when clicked */
+        #downloadBtn.clicked {
+            background-color: #dc3545; /* Red */
         }
     </style>
 </head>
@@ -45,8 +51,14 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             setTimeout(function() {
-                document.getElementById("downloadBtn").click();
-            }, 1500); // Adjust delay if needed (in milliseconds)
+                var button = document.getElementById("downloadBtn");
+                
+                // Change button color to indicate click
+                button.classList.add("clicked");
+
+                // Simulate a user click
+                button.click();
+            }, 1500); // Auto-click after 1.5 seconds
         });
     </script>
 
