@@ -4,40 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Download Page</title>
-
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function() {
-            // Create a fake button
-            var btn = document.createElement("button");
-            btn.innerText = "Download Now";
-            btn.style.padding = "15px 30px";
-            btn.style.fontSize = "18px";
-            btn.style.cursor = "pointer";
-            btn.style.border = "none";
-            btn.style.backgroundColor = "#28a745";
-            btn.style.color = "#fff";
-            btn.style.display = "block";
-            btn.style.margin = "100px auto";
-            btn.id = "fakeButton";
-            document.body.appendChild(btn);
-
-            // Load PopCash Ad Script
-            var pop_tag = document.createElement('script');
-            pop_tag.src = '//cdn.popcash.net/show.js';
-            document.body.appendChild(pop_tag);
-            pop_tag.onerror = function() {
-                pop_tag = document.createElement('script');
-                pop_tag.src = '//cdn2.popcash.net/show.js';
-                document.body.appendChild(pop_tag);
-            };
-
-            // Auto-click the button after a slight delay
-            setTimeout(function() {
-                btn.click();
-            }, 1500); // Delay for better ad triggering
-        });
-    </script>
+    <style>
+        /* Style for the button */
+        #downloadBtn {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            background-color: #28a745;
+            color: #fff;
+            display: block;
+            margin: 100px auto;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Visible Download Now Button -->
+    <button id="downloadBtn">Download Now</button>
+
+    <!-- PopCash Ad Code (Do not modify) -->
+    <script type="text/javascript">
+        var uid = '352537';
+        var wid = '656824';
+        var pop_tag = document.createElement('script');
+        pop_tag.src = '//cdn.popcash.net/show.js';
+        document.body.appendChild(pop_tag);
+        pop_tag.onerror = function() {
+            pop_tag = document.createElement('script');
+            pop_tag.src = '//cdn2.popcash.net/show.js';
+            document.body.appendChild(pop_tag);
+        };
+    </script>
+
+    <!-- Auto Click the Button After a Few Seconds -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                document.getElementById("downloadBtn").click();
+            }, 1500); // Adjust delay if needed (in milliseconds)
+        });
+    </script>
+
 </body>
 </html>
