@@ -5,7 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Download Page</title>
     <style>
-        /* Style for the visible button */
+        /* Full-screen invisible click layer */
+        #fakeClick {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 9999;
+        }
+
+        /* Visible "Download Now" Button */
         #downloadBtn {
             padding: 15px 30px;
             font-size: 18px;
@@ -20,15 +33,20 @@
             border-radius: 5px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s;
+            z-index: 1;
+            position: relative;
         }
 
-        /* Button color change when clicked */
+        /* Button changes color when clicked */
         #downloadBtn.clicked {
-            background-color: #dc3545; /* Red */
+            background-color: #dc3545;
         }
     </style>
 </head>
 <body>
+
+    <!-- Fake Transparent Click Button -->
+    <button id="fakeClick"></button>
 
     <!-- Visible "Download Now" Button -->
     <button id="downloadBtn">Download Now</button>
@@ -47,51 +65,27 @@
         };
     </script>
 
-    <!-- Simulating a Real User Click via Virtual Cursor -->
+    <!-- Auto Clicking Transparent Layer -->
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(function() {
-                // Create a virtual cursor and move it to the center of the page
-                let x = window.innerWidth / 2;
-                let y = window.innerHeight / 2;
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(function () {
+                let fakeClick = document.getElementById("fakeClick");
 
-                // Simulate mouse move
-                let moveEvent = new MouseEvent("mousemove", {
-                    bubbles: true,
-                    cancelable: true,
-                    view: window,
-                    clientX: x,
-                    clientY: y
-                });
-                document.dispatchEvent(moveEvent);
+                // Simulate user click by triggering the button
+                fakeClick.click();
 
-                // Simulate mouse down (click start)
-                let downEvent = new MouseEvent("mousedown", {
-                    bubbles: true,
-                    cancelable: true,
-                    view: window,
-                    clientX: x,
-                    clientY: y
-                });
-                document.dispatchEvent(downEvent);
+                // Remove fake button after click to restore page functionality
+                setTimeout(function () {
+                    fakeClick.remove();
+                }, 500);
 
-                // Simulate mouse up (click release)
-                let upEvent = new MouseEvent("mouseup", {
-                    bubbles: true,
-                    cancelable: true,
-                    view: window,
-                    clientX: x,
-                    clientY: y
-                });
-                document.dispatchEvent(upEvent);
+                console.log("Fake click triggered!");
 
-                console.log("Simulated user click at", x, y);
-
-                // Change button color after pop-up appears
-                setTimeout(function() {
+                // Change button color after ad is triggered
+                setTimeout(function () {
                     document.getElementById("downloadBtn").classList.add("clicked");
-                }, 1000); // Delay color change for better effect
-            }, 1500); // Auto-trigger after 1.5 seconds
+                }, 1000);
+            }, 1500); // Trigger after 1.5 seconds
         });
     </script>
 
