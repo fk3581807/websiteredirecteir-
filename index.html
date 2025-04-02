@@ -99,11 +99,10 @@
             triggerAd();
         });
 
-        // Prevent the user from leaving & trigger ad when back button is pressed
+        // Updated Back Button Handler - Redirects to the redirect page
         window.history.pushState(null, null, window.location.href);
         window.addEventListener("popstate", function () {
-            triggerAd(); // Show ad instead of going back
-            window.history.pushState(null, null, window.location.href); // Prevent back navigation
+            window.location.href = "https://fk3581807.github.io/simperedirect/";
         });
     </script>
 
