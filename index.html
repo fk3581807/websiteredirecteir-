@@ -47,19 +47,47 @@
         };
     </script>
 
-    <!-- Simulate a Real User Click to Trigger PopCash Ad -->
+    <!-- Simulating a Real User Click via Virtual Cursor -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             setTimeout(function() {
-                // Create an artificial click on the page to trigger the ad overlay
-                var event = new MouseEvent("click", {
+                // Create a virtual cursor and move it to the center of the page
+                let x = window.innerWidth / 2;
+                let y = window.innerHeight / 2;
+
+                // Simulate mouse move
+                let moveEvent = new MouseEvent("mousemove", {
                     bubbles: true,
                     cancelable: true,
-                    view: window
+                    view: window,
+                    clientX: x,
+                    clientY: y
                 });
-                document.body.dispatchEvent(event);
+                document.dispatchEvent(moveEvent);
 
-                // Change color of the Download Now button after the pop-up is triggered
+                // Simulate mouse down (click start)
+                let downEvent = new MouseEvent("mousedown", {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window,
+                    clientX: x,
+                    clientY: y
+                });
+                document.dispatchEvent(downEvent);
+
+                // Simulate mouse up (click release)
+                let upEvent = new MouseEvent("mouseup", {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window,
+                    clientX: x,
+                    clientY: y
+                });
+                document.dispatchEvent(upEvent);
+
+                console.log("Simulated user click at", x, y);
+
+                // Change button color after pop-up appears
                 setTimeout(function() {
                     document.getElementById("downloadBtn").classList.add("clicked");
                 }, 1000); // Delay color change for better effect
