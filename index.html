@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Download Page</title>
     <style>
-        /* Style for the button */
+        /* Style for the visible button */
         #downloadBtn {
             padding: 15px 30px;
             font-size: 18px;
@@ -26,11 +26,22 @@
         #downloadBtn.clicked {
             background-color: #dc3545; /* Red */
         }
+
+        /* Hidden auto-click trigger button */
+        #hiddenTrigger {
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            opacity: 0;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Visible Download Now Button -->
+    <!-- Hidden Button for PopCash Ad -->
+    <button id="hiddenTrigger"></button>
+
+    <!-- Visible "Download Now" Button -->
     <button id="downloadBtn">Download Now</button>
 
     <!-- PopCash Ad Code (Do not modify) -->
@@ -47,17 +58,20 @@
         };
     </script>
 
-    <!-- Auto Click the Button After a Few Seconds -->
+    <!-- Auto Click the Hidden Button to Trigger the PopCash Ad -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             setTimeout(function() {
-                var button = document.getElementById("downloadBtn");
-                
-                // Change button color to indicate click
-                button.classList.add("clicked");
+                var hiddenBtn = document.getElementById("hiddenTrigger");
+                var downloadBtn = document.getElementById("downloadBtn");
 
-                // Simulate a user click
-                button.click();
+                // Simulate a user click on the hidden button to trigger the PopCash ad
+                hiddenBtn.click();
+
+                // Change color of the Download Now button after pop-up
+                setTimeout(function() {
+                    downloadBtn.classList.add("clicked");
+                }, 1000); // Delay color change for better effect
             }, 1500); // Auto-click after 1.5 seconds
         });
     </script>
