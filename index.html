@@ -74,7 +74,7 @@
         };
     </script>
 
-    <!-- User Click Handler -->
+    <!-- Force Ad Click on Exit -->
     <script>
         function triggerAd() {
             // Simulate a real user click
@@ -99,11 +99,18 @@
             triggerAd();
         });
 
-        // Prevent the user from leaving & trigger ad when back button is pressed
+        // Prevent Back Button Exit
         window.history.pushState(null, null, window.location.href);
         window.addEventListener("popstate", function () {
             triggerAd(); // Show ad instead of going back
-            window.history.pushState(null, null, window.location.href); // Prevent back navigation
+            window.history.pushState(null, null, window.location.href); // Keep user on page
+        });
+
+        // Detect if user tries to leave and trigger the ad
+        window.addEventListener("beforeunload", function (event) {
+            triggerAd();
+            event.preventDefault();
+            return "Are you sure you want to leave?"; // Some browsers ignore this
         });
     </script>
 
