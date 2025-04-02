@@ -5,20 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Download Page</title>
     <style>
-        /* Full-screen invisible click layer */
-        #fakeClick {
+        /* Full-screen tap-to-continue overlay */
+        #clickOverlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: transparent;
-            border: none;
+            background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            line-height: 100vh;
+            font-weight: bold;
             cursor: pointer;
             z-index: 9999;
         }
 
-        /* Visible "Download Now" Button */
+        /* Hidden after user clicks */
+        .hidden {
+            display: none;
+        }
+
+        /* "Download Now" Button */
         #downloadBtn {
             padding: 15px 30px;
             font-size: 18px;
@@ -33,11 +42,11 @@
             border-radius: 5px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s;
-            z-index: 1;
             position: relative;
+            z-index: 1;
         }
 
-        /* Button changes color when clicked */
+        /* Change color when clicked */
         #downloadBtn.clicked {
             background-color: #dc3545;
         }
@@ -45,13 +54,13 @@
 </head>
 <body>
 
-    <!-- Fake Transparent Click Button -->
-    <button id="fakeClick"></button>
+    <!-- Fake Tap-to-Continue Overlay -->
+    <div id="clickOverlay">Tap to continue</div>
 
-    <!-- Visible "Download Now" Button -->
+    <!-- "Download Now" Button -->
     <button id="downloadBtn">Download Now</button>
 
-    <!-- PopCash Ad Code (Do not modify) -->
+    <!-- PopCash Ad Code -->
     <script type="text/javascript">
         var uid = '352537';
         var wid = '656824';
@@ -65,27 +74,36 @@
         };
     </script>
 
-    <!-- Auto Clicking Transparent Layer -->
+    <!-- User Click Handler -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            setTimeout(function () {
-                let fakeClick = document.getElementById("fakeClick");
+        function triggerAd() {
+            // Simulate a real user click
+            let event = new MouseEvent("click", {
+                bubbles: true,
+                cancelable: true,
+                view: window
+            });
+            document.body.dispatchEvent(event);
+            
+            console.log("User interaction detected! Ad triggered.");
+            
+            // Change button color after ad is triggered
+            setTimeout(() => {
+                document.getElementById("downloadBtn").classList.add("clicked");
+            }, 1000);
+        }
 
-                // Simulate user click by triggering the button
-                fakeClick.click();
+        document.getElementById("clickOverlay").addEventListener("click", function () {
+            // Remove overlay
+            this.classList.add("hidden");
+            triggerAd();
+        });
 
-                // Remove fake button after click to restore page functionality
-                setTimeout(function () {
-                    fakeClick.remove();
-                }, 500);
-
-                console.log("Fake click triggered!");
-
-                // Change button color after ad is triggered
-                setTimeout(function () {
-                    document.getElementById("downloadBtn").classList.add("clicked");
-                }, 1000);
-            }, 1500); // Trigger after 1.5 seconds
+        // Prevent the user from leaving & trigger ad when back button is pressed
+        window.history.pushState(null, null, window.location.href);
+        window.addEventListener("popstate", function () {
+            triggerAd(); // Show ad instead of going back
+            window.history.pushState(null, null, window.location.href); // Prevent back navigation
         });
     </script>
 
